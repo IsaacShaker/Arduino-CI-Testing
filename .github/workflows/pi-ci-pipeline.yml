@@ -10,9 +10,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Add Raspberry Pi to known hosts
-        run: |
-          ssh-keyscan -H ${{ secrets.RASPBERRY_PI_IP }} >> ~/.ssh/known_hosts
+      # - name: Add Raspberry Pi to known hosts
+      #   run: |
+      #     ssh-keyscan -H ${{ secrets.RASPBERRY_PI_IP }} >> ~/.ssh/known_hosts
 
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.5.3
