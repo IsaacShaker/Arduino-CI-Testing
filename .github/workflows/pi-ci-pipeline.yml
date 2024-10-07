@@ -21,4 +21,4 @@ jobs:
 
       - name: Copy entire repository to Raspberry Pi
         run: |
-          scp -r -o ConnectTimeout=30 ./* ${{ secrets.USERNAME }}@${{ secrets.RASPBERRY_PI_IP }}:/home/${{ secrets.USERNAME }}/Desktop/CI-testing
+          scp -r -o ConnectTimeout=30 ./* ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_IP }}:/home/${{ secrets.RASPBERRY_PI_USERNAME }}/Desktop/CI-testing
