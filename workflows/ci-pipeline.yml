@@ -1,0 +1,29 @@
+name: CI Pipeline for Raspberry Pi
+
+# When should this action run? (e.g., Manual trigger or push to a specific branch)
+on:
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Runs the job on GitHub's Ubuntu environment
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2 # Check out your code from the repository
+
+      - name: Set up SSH Access
+        uses: webfactory/ssh-agent@v0.5.3 # Set up SSH for secure communication with the Raspberry Pi
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} # Add your SSH private key to GitHub secrets
+
+      - name: Copy Code to Raspberry Pi
+        run: |
+          scp -r ./* ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_IP }}:~/Desktop/CI-testing
+
+      # - name: Compile and Upload Code to Arduino via Raspberry Pi
+      #   run: |
+      #     ssh pi@<raspberry-pi-ip> "
+      #       cd ~/project_directory &&
+      #       arduino-cli compile --fqbn teensy:avr:teensy40 path/to/your/sketch.ino &&
+      #       arduino-cli upload --port /dev/ttyACM0 --fqbn teensy:avr:teensy40 path/to/your/sketch"
