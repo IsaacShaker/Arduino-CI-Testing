@@ -1,4 +1,4 @@
-lslsname: CI Pipeline for Raspberry Pi
+name: CI Pipeline for Raspberry Pi
 
 # When should this action run? (e.g., Manual trigger or push to a specific branch)
 on:
@@ -23,4 +23,3 @@ jobs:
       - name: Copy entire repository to Raspberry Pi
         run: |
           scp -r -o ConnectTimeout=30 ./* ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_IP }}:/home/${{ secrets.RASPBERRY_PI_USERNAME }}/Desktop/CI-testing
-
