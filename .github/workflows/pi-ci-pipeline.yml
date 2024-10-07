@@ -1,4 +1,4 @@
-lslsname: CI Pipeline for Raspberry Pi
+name: CI Pipeline for Raspberry Pi
 
 # When should this action run? (e.g., Manual trigger or push to a specific branch)
 on:
