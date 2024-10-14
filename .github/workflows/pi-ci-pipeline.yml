@@ -19,7 +19,7 @@ jobs:
 
       - name: Add Pi to known_hosts
         run: |
-          ssh-keyscan -H shakepi >> ~/.ssh/known_hosts
+          ssh-keyscan -H shakepi > ~/.ssh/known_hosts
 
       - name: Create README File
         run: |
