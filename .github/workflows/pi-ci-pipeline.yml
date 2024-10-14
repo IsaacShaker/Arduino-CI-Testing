@@ -24,12 +24,12 @@ jobs:
 
       - name: Add Pi to known_hosts
         run: |
-          ssh-keyscan -H shakepi >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.TS_PI_IP }} >> ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
 
       - name: Create README File
         run: |
-          ssh shake@shakepi "
+          ssh shake@${{ secrets.TS_PI_IP }} "
             cd ~/Desktop/CI-testing
             touch README.md
           "
