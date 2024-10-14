@@ -17,9 +17,10 @@ jobs:
 
       - name: Create README File
         run: |
-          ssh shake@shakepi "
-            cd ~/Desktop/CI-testing && 
-            touch README.md"
+          ssh -o "StrictHostChecking no" shake@shakepi "
+            cd ~/Desktop/CI-testing
+            touch README.md
+          "
 
       # - name: Copy entire repository to Raspberry Pi
       #   run: |
