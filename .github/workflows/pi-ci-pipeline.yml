@@ -14,6 +14,13 @@ jobs:
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
           tags: tag:ci
 
+      - name: Check Tailscale status
+        run: tailscale status
+
+      - name: Test SSH Connection
+        run: |
+          ssh -o StrictHostKeyChecking=no shake@shakepi "echo SSH connection successful"
+
       - name: Checkout code
         uses: actions/checkout@v2
 
