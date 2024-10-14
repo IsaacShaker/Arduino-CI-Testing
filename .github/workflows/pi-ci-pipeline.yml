@@ -17,9 +17,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create SSH directory
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
       - name: Add Pi to known_hosts
         run: |
-          ssh-keyscan -H shakepi > ~/.ssh/known_hosts
+          ssh-keyscan -H shakepi >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
 
       - name: Create README File
         run: |
