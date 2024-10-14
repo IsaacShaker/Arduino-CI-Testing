@@ -19,7 +19,7 @@ jobs:
 
       - name: Create README File
         run: |
-          ssh -o "StrictHostChecking no" shake@shakepi "
+          ssh -o shake@shakepi "
             cd ~/Desktop/CI-testing
             touch README.md
           "
