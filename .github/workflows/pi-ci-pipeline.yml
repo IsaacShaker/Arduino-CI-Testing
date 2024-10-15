@@ -37,13 +37,5 @@ jobs:
       - name: Compile and Upload Code to Teensy
         run: |
           ssh ${{ secrets.PI_USERNAME }}@${{ secrets.TS_PI_IP }} "
-            echo 'Starting compilation...'
-            if arduino-cli compile --fqbn teensy:avr:teensy41 --output-dir ~/Desktop/project/build ~/Desktop/project/project.ino; then
-              echo 'Compilation successful, uploading...'
-              cd ~/bin
-              sudo ./teensy_loader_cli -w -v -s -mmcu=TEENSY41 ~/Desktop/project/build/project.ino.hex
-            else
-              echo 'Compilation failed'
-              exit 1
-            fi
+            arduino-cli compile --fqbn teensy:avr:teensy41 --output-dir ~/Desktop/project/build ~/Desktop/project/project.ino && cd ~/bin && sudo ./teensy_loader_cli -w -v -s -mmcu=TEENSY41 ~/Desktop/project/build/project.ino.hex
           "
