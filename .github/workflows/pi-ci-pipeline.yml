@@ -28,13 +28,16 @@ jobs:
           ssh-keyscan -H ${{ secrets.TS_PI_IP }} >> ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
 
-      - name: Create README File
+      - name: Copy files to Raspberry Pi
         run: |
           ssh ${{ secrets.PI_USERNAME }}@${{ secrets.TS_PI_IP }} "
-            cd ~/Desktop/CI-testing
-            touch README.md
-          "
+            mkdir -p ~/Desktop/project/build"
+          scp -r ./* ${{ secrets.PI_USERNAME }}@${{ secrets.TS_PI_IP }}:~/Desktop/project
 
-      # - name: Copy entire repository to Raspberry Pi
-      #   run: |
-      #     scp -r -o ConnectTimeout=30 ./* ${{ secrets.RASPBERRY_PI_USERNAME }}@${{ secrets.RASPBERRY_PI_IP }}:/home/${{ secrets.RASPBERRY_PI_USERNAME }}/Desktop/CI-testing
+      - name: Compile and Upload Code to Teensy
+        run: |
+          ssh ${{ secrets.PI_USERNAME }}@${{ secrets.TS_PI_IP }} "
+            arduino-cli compile --fqbn teensy:avr:teensy41 --output-dir ~/Desktop/project/build ~/Desktop/project/project.ino
+            cd ~/bin
+            sudo ./teensy_loader_cli -w -v -s -mmcu=TEENSY41 ~/Desktop/project/build/project.ino.hex
+          "
